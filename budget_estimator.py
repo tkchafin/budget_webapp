@@ -35,17 +35,17 @@ app.layout = html.Div(children=[
                 html.Span(" - Percentage of mortgage", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
 
-            # Minimum Annual Income
+            # Minimum Annual Income (updated default)
             html.Div([
                 html.Label("Minimum Annual Income ($)", style={'font-family': 'Arial, sans-serif'}),
-                dcc.Input(id='min-annual-income', value=60000, type='number', step=1000),
+                dcc.Input(id='min-annual-income', value=30000, type='number', step=1000),  # Changed default to 30000
                 html.Span(" - Minimum combined annual income (post-tax)", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
 
-            # Maximum Annual Income
+            # Maximum Annual Income (updated default)
             html.Div([
                 html.Label("Maximum Annual Income ($)", style={'font-family': 'Arial, sans-serif'}),
-                dcc.Input(id='max-annual-income', value=250000, type='number', step=1000),
+                dcc.Input(id='max-annual-income', value=200000, type='number', step=1000),  # Changed default to 200000
                 html.Span(" - Maximum combined annual income (post-tax)", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
 
@@ -135,8 +135,8 @@ def update_estimate(mortgage_cost, down_payment_percent, min_annual_income, max_
     # Ensure all input values are numeric
     mortgage_cost = float(mortgage_cost) if mortgage_cost is not None else 600000.0
     down_payment_percent = float(down_payment_percent) if down_payment_percent is not None else 25.0
-    min_annual_income = float(min_annual_income) if min_annual_income is not None else 60000.0
-    max_annual_income = float(max_annual_income) if max_annual_income is not None else 250000.0
+    min_annual_income = float(min_annual_income) if min_annual_income is not None else 30000.0
+    max_annual_income = float(max_annual_income) if max_annual_income is not None else 200000.0
     rental_cost = float(rental_cost) if rental_cost is not None else 1800.0
     utilities = float(utilities) if utilities is not None else 300.0
     phone_internet = float(phone_internet) if phone_internet is not None else 150.0
