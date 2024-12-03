@@ -203,3 +203,5 @@ def update_estimate(mortgage_cost, down_payment_percent, min_annual_income, max_
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)
+
+server = app.server
