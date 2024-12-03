@@ -18,78 +18,110 @@ app.layout = html.Div(children=[
     ''', style={'text-align': 'center', 'font-family': 'Arial, sans-serif', 'margin-bottom': '30px'}),
 
     html.Div(className='row', children=[
-        html.Div(className='six columns', style={'padding': '20px', 'border': '1px solid #ddd', 'border-radius': '5px'}, children=[
+        html.Div(className='twelve columns', style={'padding': '20px', 'border': '1px solid #ddd', 'border-radius': '5px'}, children=[
             html.H2("Variable Parameters", style={'font-family': 'Arial, sans-serif'}),
+
+            # Mortgage Cost
             html.Div([
                 html.Label("Buy/build mortgage cost ($)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='mortgage-cost', value=600000, type='number', step=10000),
                 html.Span(" - Total mortgage amount", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
+            # Down Payment Percentage
             html.Div([
                 html.Label("Target Down Payment (%)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='down-payment-percent', value=25, type='number', step=1),
                 html.Span(" - Percentage of mortgage", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
+            # Minimum Annual Income
+            html.Div([
+                html.Label("Minimum Annual Income ($)", style={'font-family': 'Arial, sans-serif'}),
+                dcc.Input(id='min-annual-income', value=60000, type='number', step=1000),
+                html.Span(" - Minimum combined annual income (post-tax)", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
+            ], style={'margin-bottom': '10px'}),
+
+            # Maximum Annual Income
+            html.Div([
+                html.Label("Maximum Annual Income ($)", style={'font-family': 'Arial, sans-serif'}),
+                dcc.Input(id='max-annual-income', value=250000, type='number', step=1000),
+                html.Span(" - Maximum combined annual income (post-tax)", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
+            ], style={'margin-bottom': '10px'}),
+
+            # Rental Cost
             html.Div([
                 html.Label("Rental Cost ($)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='rental-cost', value=1800, type='number', step=100),
                 html.Span(" - Monthly rent", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
+            # Utilities
             html.Div([
                 html.Label("Utilities ($)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='utilities', value=300, type='number', step=10),
                 html.Span(" - Monthly cost", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
+            # Phone/Internet
             html.Div([
                 html.Label("Phone/Internet ($)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='phone-internet', value=150, type='number', step=10),
                 html.Span(" - Monthly cost", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
+            # Food
             html.Div([
                 html.Label("Food ($)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='food', value=400, type='number', step=10),
                 html.Span(" - Monthly cost", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
+            # Insurances
             html.Div([
                 html.Label("Insurances ($)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='insurances', value=400, type='number', step=10),
                 html.Span(" - Monthly cost", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
+            # Vehicles
             html.Div([
                 html.Label("Vehicles ($)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='vehicles', value=400, type='number', step=10),
                 html.Span(" - Monthly cost", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
+            # Childcare
             html.Div([
                 html.Label("Childcare ($)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='childcare', value=300, type='number', step=10),
                 html.Span(" - Monthly cost", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
+            # Other
             html.Div([
                 html.Label("Other ($)", style={'font-family': 'Arial, sans-serif'}),
                 dcc.Input(id='other', value=500, type='number', step=10),
                 html.Span(" - Monthly cost", style={'color': 'gray', 'font-size': '12px', 'margin-left': '10px'})
             ], style={'margin-bottom': '10px'}),
+
             html.P("Vary these and re-generate estimates", style={'color': 'red', 'font-family': 'Arial, sans-serif'})
         ]),
-
-        html.Div(className='six columns', style={'padding': '20px'}, children=[
-            html.Button('Estimate!', id='estimate-button', n_clicks=0, style={'background-color': 'gray', 'color': 'white', 'border': 'none', 'padding': '10px 20px', 'text-align': 'center', 'text-decoration': 'none', 'display': 'inline-block', 'font-size': '16px', 'border-radius': '5px', 'margin-bottom': '20px'}),
-
-            dcc.Graph(id='estimate-chart'),
-        ])
     ]),
 
-    html.Div(id='estimate-table', className='row', style={'margin-top': '20px'})
+    dcc.Graph(id='estimate-chart', style={'margin-top': '20px'}),
+
+    html.Div(id='estimate-table', className='row', style={'margin-top': '20px', 'display': 'none'})
 ])
 
-# Define the callback for the button click and initial loading
+# Define the callback for updating the chart and table
 @app.callback(
     Output('estimate-chart', 'figure'),
     Output('estimate-table', 'children'),
-    Input('estimate-button', 'n_clicks'),
     Input('mortgage-cost', 'value'),
     Input('down-payment-percent', 'value'),
+    Input('min-annual-income', 'value'),  # Included here
+    Input('max-annual-income', 'value'),  # Included here
     Input('rental-cost', 'value'),
     Input('utilities', 'value'),
     Input('phone-internet', 'value'),
@@ -99,20 +131,43 @@ app.layout = html.Div(children=[
     Input('childcare', 'value'),
     Input('other', 'value')
 )
-def update_estimate(n_clicks, mortgage_cost, down_payment_percent, rental_cost, utilities, phone_internet, food, insurances, vehicles, childcare, other):
-    # This function now updates on button click OR initial load
-    
-    def calculate_months_to_save(annual_income, mortgage_cost, down_payment_percent, rental_cost, utilities, phone_internet, food, insurances, vehicles, childcare, other):
+def update_estimate(mortgage_cost, down_payment_percent, min_annual_income, max_annual_income, rental_cost, utilities, phone_internet, food, insurances, vehicles, childcare, other):
+    # Ensure all input values are numeric
+    mortgage_cost = float(mortgage_cost) if mortgage_cost is not None else 600000.0
+    down_payment_percent = float(down_payment_percent) if down_payment_percent is not None else 25.0
+    min_annual_income = float(min_annual_income) if min_annual_income is not None else 60000.0
+    max_annual_income = float(max_annual_income) if max_annual_income is not None else 250000.0
+    rental_cost = float(rental_cost) if rental_cost is not None else 1800.0
+    utilities = float(utilities) if utilities is not None else 300.0
+    phone_internet = float(phone_internet) if phone_internet is not None else 150.0
+    food = float(food) if food is not None else 400.0
+    insurances = float(insurances) if insurances is not None else 400.0
+    vehicles = float(vehicles) if vehicles is not None else 400.0
+    childcare = float(childcare) if childcare is not None else 300.0
+    other = float(other) if other is not None else 500.0
+
+    def calculate_months_to_save(annual_income):
         down_payment = mortgage_cost * (down_payment_percent / 100)
         monthly_income = annual_income / 12
         monthly_expenses = rental_cost + utilities + phone_internet + food + insurances + vehicles + childcare + other
-        months_to_save = down_payment / (monthly_income - monthly_expenses)
-        return months_to_save
+        
+        # Catch the case where income is not enough
+        if monthly_income <= monthly_expenses:
+            return None  # Or you could return 0 or another value indicating insufficient income
+        else:
+            months_to_save = down_payment / (monthly_income - monthly_expenses)
+            return months_to_save
 
-    income_levels = range(60000, 255000, 5000)
+    income_levels = range(int(min_annual_income), int(max_annual_income) + 1, 5000)
+    
+    # Calculate months to save and filter out None values
+    months_to_save_list = [calculate_months_to_save(income) for income in income_levels]
+    valid_months_to_save = [months for months in months_to_save_list if months is not None]
+    valid_income_levels = [income for i, income in enumerate(income_levels) if months_to_save_list[i] is not None]
+
     df = pd.DataFrame({
-        "Annual Income (After Tax)": income_levels,
-        "Months to Down Payment": [calculate_months_to_save(income, mortgage_cost, down_payment_percent, rental_cost, utilities, phone_internet, food, insurances, vehicles, childcare, other) for income in income_levels]
+        "Annual Income (After Tax)": valid_income_levels,
+        "Months to Down Payment": valid_months_to_save
     })
 
     # ggplot-style chart
@@ -143,7 +198,7 @@ def update_estimate(n_clicks, mortgage_cost, down_payment_percent, rental_cost, 
         ]
     )
 
-    return fig, table  # Return the figure and table even on initial load
+    return fig, table
 
 # Run the app
 if __name__ == '__main__':
