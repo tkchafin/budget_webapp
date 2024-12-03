@@ -158,7 +158,8 @@ def update_estimate(mortgage_cost, down_payment_percent, min_annual_income, max_
             months_to_save = down_payment / (monthly_income - monthly_expenses)
             return months_to_save
 
-    income_levels = range(int(min_annual_income), int(max_annual_income) + 1, 5000)
+    step = (max_annual_income - min_annual_income) // 20  # Calculate step to have around 20 data points
+    income_levels = range(int(min_annual_income), int(max_annual_income) + 1, int(step))
     
     # Calculate months to save and filter out None values
     months_to_save_list = [calculate_months_to_save(income) for income in income_levels]
